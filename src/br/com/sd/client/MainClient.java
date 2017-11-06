@@ -17,18 +17,39 @@ public class MainClient {
 	public static void main(String[] args) {
 
 		try {
-			ICalculator calculator = (ICalculator) Naming.lookup("rmi://localhost:1090/calculator");
+			ICalculator calculator = (ICalculator) Naming.lookup("rmi://localhost/calculator");
 
-			JOptionPane.showMessageDialog(null,"Teste, somando 5 + 5 = " + calculator.sum(5, 5));
+			String firstValue = JOptionPane.showInputDialog("Digite o primeiro valor:");
+			String secondValue = JOptionPane.showInputDialog("Digite o segundo valor:");
+
+			Object[] itens = { "Somar", "Subtrair", "Multiplicar", "Dividir" };
+			Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um item", "OpÃ§ao",
+					JOptionPane.INFORMATION_MESSAGE, null, itens, itens[0]);
+
+			if (selectedValue.equals("Somar")) {
+				JOptionPane.showMessageDialog(null, "Resultado da soma = "
+						+ calculator.sum(Integer.parseInt(firstValue), Integer.parseInt(secondValue)));
+			} else if (selectedValue.equals("Subtrair")) {
+				JOptionPane.showMessageDialog(null, "Resultado da subtraÃ§Ã£o = "
+						+ calculator.subtract(Integer.parseInt(firstValue), Integer.parseInt(secondValue)));
+			} else if (selectedValue.equals("Multiplicar")) {
+				JOptionPane.showMessageDialog(null, "Resultado da multiplicaÃ§Ã£o = "
+						+ calculator.multiply(Integer.parseInt(firstValue), Integer.parseInt(secondValue)));
+			} else if (selectedValue.equals("Dividir")) {
+				JOptionPane.showMessageDialog(null, "Resultado da soma = "
+						+ calculator.sum(Integer.parseInt(firstValue), Integer.parseInt(secondValue)));
+			} else {
+				JOptionPane.showMessageDialog(null, "OpÃ§Ã£o invalida");
+			}
 
 		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(null, "(Erro no registro da aplicação) " + e.toString());
+			JOptionPane.showMessageDialog(null, "(Erro no registro da aplicaï¿½ï¿½o) " + e.toString());
 		} catch (NotBoundException e) {
 			JOptionPane.showMessageDialog(null, e.toString());
 		} catch (MalformedURLException e) {
-			JOptionPane.showMessageDialog(null, "(Erro no link da aplicação) " + e.toString());
+			JOptionPane.showMessageDialog(null, "(Erro no link da aplicaï¿½ï¿½o) " + e.toString());
 		} catch (ArithmeticException e) {
-			JOptionPane.showMessageDialog(null, "(Erro na operação da aplicação) " + e.toString());
+			JOptionPane.showMessageDialog(null, "(Erro na operaï¿½ï¿½o da aplicaï¿½ï¿½o) " + e.toString());
 		}
 
 	}
